@@ -1,0 +1,26 @@
+<mat-card class="p-5" appearance="outlined">
+  <!-- <img class="rounded-lg" src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt=""> -->
+  <app-image-carousel [images]="[
+    'https://picsum.photos/id/1015/800/400',
+    'https://picsum.photos/id/1020/800/400',
+    'https://picsum.photos/id/1035/800/400'
+  ]"></app-image-carousel>
+  <div class="mt-4">
+    <div class="flex items-center mb-2">
+      <mat-icon>info</mat-icon>
+      <div class="ml-2 text-md">Arriendo</div>
+    </div>
+    <div class="flex items-center mb-2">
+      <mat-icon>location_on</mat-icon>
+      <div class="ml-2 text-md">Bucaramanga</div>
+    </div>
+    <div class="flex items-center">
+      <mat-icon>paid</mat-icon>
+      <div class="ml-2 text-md">300.000</div>
+    </div>
+  </div>
+  <div class="flex gap-4 mt-4">
+    <button matButton="filled">Editar</button>
+    <button matButton="elevated">Ver detalles</button>
+  </div>
+</mat-card>

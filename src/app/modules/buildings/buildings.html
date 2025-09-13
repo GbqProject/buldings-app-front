@@ -1,1 +1,19 @@
-<p>buildings works!</p>
+<div class="py-10 px-50">
+  <div class="text-3xl md:text-4xl font-semibold text-blue-600 dark:text-blue-400 mb-2">Gestionar Inmuebles</div>
+  <div class="text-sm">Gestiona tus inmuebles de forma sencilla. Busca propiedades, agrega nuevas y administra las que
+    ya posees.</div>
+  <div class="flex items-end justify-end">
+  <button (click)="openDialog()" mat-flat-button color="primary">
+    Agregar
+  </button>
+</div>
+  <div class="flex mt-4 gap-4">
+    <div class="w-100">
+      <app-buildings-filters></app-buildings-filters>
+    </div>
+    <div class="w-80">
+      <app-building-card></app-building-card>
+    </div>
+  </div>
+
+</div>

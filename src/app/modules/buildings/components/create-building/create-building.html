@@ -1,0 +1,62 @@
+<div class="w-full p-10 flex flex-col gap-5">
+  <div class="text-xl font-semibold">Crear un inmueble</div>
+  <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <!-- City -->
+    <mat-form-field class="w-full">
+      <mat-label>Ciudad</mat-label>
+      <input matInput formControlName="city" placeholder="Ingrese la ciudad">
+    </mat-form-field>
+
+    <!-- Room Amount -->
+    <mat-form-field class="w-full">
+      <mat-label>Número de habitaciones</mat-label>
+      <input matInput type="number" formControlName="room_amount">
+    </mat-form-field>
+
+    <!-- Bathroom Amount -->
+    <mat-form-field class="w-full">
+      <mat-label>Número de baños</mat-label>
+      <input matInput type="number" formControlName="bathroom_amount">
+    </mat-form-field>
+
+    <!-- Type Consignation -->
+    <mat-form-field class="w-full">
+      <mat-label>Tipo de consignación</mat-label>
+      <mat-select formControlName="type_consignation">
+        <mat-option value="lease">Arriendo</mat-option>
+        <mat-option value="sale">Venta</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Rental Value -->
+    <mat-form-field class="w-full">
+      <mat-label>Valor de arriendo</mat-label>
+      <input matInput type="number" formControlName="rental_value" placeholder="Opcional si es venta">
+    </mat-form-field>
+
+    <!-- Sale Value -->
+    <mat-form-field class="w-full">
+      <mat-label>Valor de venta</mat-label>
+      <input matInput type="number" formControlName="sale_value" placeholder="Opcional si es arriendo">
+    </mat-form-field>
+
+    <!-- Image Upload -->
+    <div class="md:col-span-2 flex flex-col gap-2">
+      <label class="text-sm font-medium text-gray-700">Imágenes</label>
+      <input type="file" (change)="onFileSelected($event)" multiple>
+
+      <div class="flex flex-wrap gap-2 mt-2">
+        <img *ngFor="let img of uploadedImages" [src]="img" alt="preview"
+          class="w-24 h-24 object-cover rounded-md shadow">
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="md:col-span-2 flex justify-end">
+      <button mat-raised-button color="primary" type="submit">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

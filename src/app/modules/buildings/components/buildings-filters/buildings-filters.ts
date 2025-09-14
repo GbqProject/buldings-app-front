@@ -22,7 +22,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    AsyncPipe,
     CommonModule,
     MatIconModule,
     MatSliderModule,
@@ -33,7 +32,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 export class BuildingsFilters implements OnInit {
 
   myControl = new FormControl('');
-  options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
 
   rooms: any = [
@@ -44,16 +42,7 @@ export class BuildingsFilters implements OnInit {
   ]
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
-  }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   update(completed: boolean, index: number) {

@@ -1,18 +1,23 @@
-<div class="py-10 px-50">
+<div class="py-10 px-10 lg:px-50">
   <div class="text-3xl md:text-4xl font-semibold text-blue-600 dark:text-blue-400 mb-2">Gestionar Inmuebles</div>
   <div class="text-sm">Gestiona tus inmuebles de forma sencilla. Busca propiedades, agrega nuevas y administra las que
     ya posees.</div>
   <div class="flex items-end justify-end">
-  <button (click)="openDialog()" mat-flat-button color="primary">
-    Agregar
-  </button>
-</div>
+    <button (click)="openDialog()" mat-flat-button color="primary">
+      Agregar
+    </button>
+  </div>
   <div class="flex mt-4 gap-4">
     <div class="w-100">
       <app-buildings-filters></app-buildings-filters>
     </div>
-    <div class="w-80">
-      <app-building-card></app-building-card>
+    <div class="w-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  gap-6">
+      @for (item of buildings; track item.id) {
+        <app-building-card [item]="item"></app-building-card>
+      } @empty {
+        <div>No hay registros para mostrar</div>
+      }
+      <!-- <app-building-card></app-building-card> -->
     </div>
   </div>
 

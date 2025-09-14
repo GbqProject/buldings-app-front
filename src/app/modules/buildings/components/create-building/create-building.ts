@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { BuildingService } from '../../buildings-service';
 
 @Component({
   selector: 'app-building-form',
@@ -23,14 +24,17 @@ export class CreateBuildingFormComponent {
   buildingForm: FormGroup;
   uploadedImages: string[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private _buildingService: BuildingService
+  ) {
     this.buildingForm = this.fb.group({
-      city: ['', Validators.required],
-      room_amount: [null, Validators.required],
-      bathroom_amount: [null, Validators.required],
-      type_consignation: ['lease', Validators.required],
-      rental_value: [null],
-      sale_value: [null],
+      city: ['Bucaramanga', Validators.required],
+      room_amount: [2, Validators.required],
+      bathroom_amount: [1, Validators.required],
+      type_consignement: ['lease', Validators.required],
+      rental_value: [1000],
+      sale_value: [0],
       images: [[]],
     });
   }
@@ -50,7 +54,21 @@ export class CreateBuildingFormComponent {
   }
 
   onSubmit() {
-    console.log(this.buildingForm.value);
+    if (this.buildingForm.valid) {
+      this._buildingService.create(this.buildingForm.value).subscribe({
+        next: (building) => console.log('Created:', building),
+        error: (err) => console.error('Error creating building:', err)
+      });
+    }
+  }
+
+  onUpdate(id: number) {
+    if (this.buildingForm.valid) {
+      this._buildingService.update(id, this.buildingForm.value).subscribe({
+        next: (building) => console.log('Updated:', building),
+        error: (err) => console.error('Error updating building:', err)
+      });
+    }
   }
 }
 

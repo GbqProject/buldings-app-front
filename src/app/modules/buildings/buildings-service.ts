@@ -70,4 +70,8 @@ export class BuildingService {
 
     return this.http.get<Building[]>(this.apiUrl+'/filter', { params });
   }
+
+  deleteBuilding(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

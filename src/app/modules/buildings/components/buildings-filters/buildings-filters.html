@@ -1,21 +1,21 @@
 <mat-card class="p-5" appearance="outlined">
   <div class="text-xl font-semibold mb-4">Filtros</div>
-  <form class="flex flex-col gap-2">
+  <form [formGroup]="myForm" class="flex flex-col gap-2">
     <!-- Ciudad -->
     <mat-form-field class="w-full">
       <mat-label>Ciudad</mat-label>
-      <input matInput type="text" placeholder="Ingrese la ciudad">
+      <input formControlName="ciudad" matInput type="text" placeholder="Ingrese la ciudad">
     </mat-form-field>
     <!-- Valor Superior -->
     <mat-form-field class="w-full">
       <mat-label>Valor Superior</mat-label>
-      <input matInput type="number" placeholder="Ingrese el valor superior">
+      <input formControlName="valorSuperior" matInput type="number" placeholder="Ingrese el valor superior">
     </mat-form-field>
 
     <!-- Valor Inferior -->
     <mat-form-field class="w-full">
       <mat-label>Valor Inferior</mat-label>
-      <input matInput type="number" placeholder="Ingrese el valor inferior">
+      <input formControlName="valorInferior" matInput type="number" placeholder="Ingrese el valor inferior">
     </mat-form-field>
 
     <!-- Número de habitaciones -->
@@ -32,8 +32,8 @@
 
   </form>
   <div class="flex gap-4 mt-4">
-    <button matButton="filled">Aplicar</button>
-    <button matButton="elevated">Limpiar</button>
+    <button matButton="filled" (click)="onSubmit()">Aplicar</button>
+    <button matButton="elevated" (click)="onClear()">Limpiar</button>
   </div>
   <!-- <div>Ciudad</div>
   <div>Valor Superior</div>

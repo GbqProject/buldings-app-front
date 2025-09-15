@@ -1,9 +1,9 @@
 <mat-card class="p-5" appearance="outlined">
-  <app-image-carousel [images]="item.images_base_64"></app-image-carousel>
+  <app-image-carousel [images]="item.images_base_64??[]"></app-image-carousel>
   <div class="mt-4">
     <div class="flex items-center mb-2">
       <mat-icon>info</mat-icon>
-      <div class="ml-2 text-md">Arriendo</div>
+      <div class="ml-2 text-md">{{item.type_consignement=='sale'? 'Venta' : 'Arriendo'}}</div>
     </div>
     <div class="flex items-center mb-2">
       <mat-icon>location_on</mat-icon>
@@ -11,15 +11,15 @@
     </div>
     <div class="flex items-center">
       <mat-icon>paid</mat-icon>
-      <div class="ml-2 text-md">{{item.rental_value | number:'1.0-0'}}</div>
+      <div class="ml-2 text-md">{{item.type_consignement=='sale'? item.sale_value: item.rental_value | number:'1.0-0'}}</div>
     </div>
     <div class="flex items-center mt-2">
       <mat-icon>bed</mat-icon>
-      <div class="ml-2 text-md">{{item.bathroom_amount}}</div>
+      <div class="ml-2 text-md">{{item.room_amount}}</div>
     </div>
   </div>
   <div class="flex gap-4 mt-4">
-    <button matButton="filled">Editar</button>
-    <button matButton="elevated">Ver detalles</button>
+    <button (click)="clickOption('update')" matButton="filled">Editar</button>
+    <button (click)="clickOption('delete')" matButton="elevated">Eliminar</button>
   </div>
 </mat-card>

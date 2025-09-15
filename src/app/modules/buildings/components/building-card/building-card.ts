@@ -1,4 +1,4 @@
-import { Component, Input, LOCALE_ID } from '@angular/core';
+import { Component, Input, LOCALE_ID, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,8 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class BuildingCard {
+  clickUpdate = output();
+  clickDelete = output();
   @Input() item: Building = {
     city: 'Bucaramanga',
     room_amount: 4,
@@ -29,5 +31,18 @@ export class BuildingCard {
     rental_value: 1000,
     sale_value: 2000,
     images_base_64: []
+  }
+
+  clickOption(type: string){
+    switch (type) {
+      case 'update':
+        this.clickUpdate.emit();
+        break;
+      case 'delete':
+        this.clickDelete.emit();
+        break;
+      default:
+        break;
+    }
   }
 }

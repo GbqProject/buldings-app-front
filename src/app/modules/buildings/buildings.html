@@ -9,15 +9,14 @@
   </div>
   <div class="flex mt-4 gap-4">
     <div class="w-100">
-      <app-buildings-filters></app-buildings-filters>
+      <app-buildings-filters (filterData)="filterBuildings($event)"></app-buildings-filters>
     </div>
     <div class="w-full grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  gap-6">
       @for (item of buildings; track item.id) {
-        <app-building-card [item]="item"></app-building-card>
+        <app-building-card [item]="item" (clickUpdate)="openDialog(item)" (clickDelete)="delete(item.id)"></app-building-card>
       } @empty {
         <div>No hay registros para mostrar</div>
       }
-      <!-- <app-building-card></app-building-card> -->
     </div>
   </div>
 

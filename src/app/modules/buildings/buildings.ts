@@ -1,4 +1,4 @@
-import { BuildingService } from './buildings-service';
+import { Building, BuildingService } from './buildings-service';
 import { Component, inject, OnInit } from '@angular/core';
 import { BuildingCard } from './components/building-card/building-card';
 import { BuildingsFilters } from './components/buildings-filters/buildings-filters';
@@ -29,44 +29,37 @@ export class Buildings implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBuildings();
-    // this.filterBuildings()
     // this.openDialog()
   }
 
-  openDialog() {
+  openDialog(data?: Building) {
     this.dialog.open(CreateBuildingFormComponent, {
-      data: {},
-      width: '90vw',       // ✅ Takes 90% of viewport width
-      maxWidth: '90vw',    // ✅ Overrides Angular Material's default max-width (80vw)
+      data: data,
+      width: '70vw',       // ✅ Takes 90% of viewport width
+      maxWidth: '70vw',    // ✅ Overrides Angular Material's default max-width (80vw)
     });
-  }
-
-  getBuildings() {
-    this._buildingService.get().subscribe({
-      next: (res => {
-        console.log('res', res);
-        this.buildings = res;
-        this.buildings.forEach((element: any) => {
-          //[0].images[0].base_64
-          element.images_base_64 = element.images.map((i: { base_64: any; })=>i.base_64);
-        });
-        console.log('buildings', this.buildings);
-      }),
+    this.dialog.afterAllClosed.subscribe(res => {
+      this.filterBuildings({});
     })
   }
 
-  filterBuildings() {
-    this._buildingService.getBuildings({
-      city: 'Bogotá',
-      value_min: 1000000,
-      value_max: 3000000,
-      room_amount: [2, 4]
-    }).subscribe(data => {
-      console.log('filtered buildings', data);
-      // this.buildings = data;
+  filterBuildings(data: any) {
+    this._buildingService.getBuildings(data).subscribe(res => {
+      this.buildings = res;
+      this.buildings.forEach((element: any) => {
+        element.images_base_64 = element.images.map((i: { base_64: any; }) => i.base_64);
+      });
     });
   }
 
+  delete(id: number) {
+    this._buildingService.deleteBuilding(id).subscribe({
+      next: () => {
+        // Remove from the array so the UI updates
+        this.buildings = this.buildings.filter((b: { id: number; }) => b.id !== id);
+      },
+      error: err => console.error('Error deleting building', err)
+    });
+  }
 
 }
